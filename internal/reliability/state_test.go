@@ -43,6 +43,12 @@ func TestState_BasicFlows(t *testing.T) {
 		t.Fatalf("missing inbound sum")
 	}
 
+	st.OnNak(1, now)
+	acts = st.Tick(now, 10)
+	if len(acts.ReTx) == 0 || acts.ReTx[0] != 1 {
+		t.Fatalf("expected retransmit after nak, got %+v", acts.ReTx)
+	}
+
 	st.OnAck(1, now)
 	acts = st.Tick(now, 10)
 	if len(acts.AckAck) == 0 || acts.AckAck[0] != 1 {
@@ -53,11 +59,5 @@ func TestState_BasicFlows(t *testing.T) {
 	acts = st.Tick(now, 10)
 	if len(acts.Ack) != 0 {
 		t.Fatalf("min-interval ack suppression failed: %+v", acts.Ack)
-	}
-
-	st.OnNak(1, now)
-	acts = st.Tick(now, 10)
-	if len(acts.ReTx) == 0 || acts.ReTx[0] != 1 {
-		t.Fatalf("expected retransmit after nak, got %+v", acts.ReTx)
 	}
 }
