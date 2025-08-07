@@ -286,10 +286,10 @@ Composition:
 - [x] Handshake protocol: HELLO/KX/AUTH/SESSION message formats and transcript binding.
 - [x] Packet codecs: header encode/decode, DATA/ACK/ACK_ACK/NAK/CONTROL/FEC_PARITY, checksums (BLAKE3-128).
 - [x] Atomic ring buffers: SPSC and MPMC variants; buffer pooling and zero-copy boundaries.
-- [ ] Sender pipeline: delta computation (rolling checksum + BLAKE3 strong), compression, chunking, FEC encode, encrypt, queue.
-- [ ] Receiver pipeline: decrypt/authenticate, checksum verify, FEC recovery, reorder, apply delta, ACK/NAK emission.
+- [x] Sender pipeline: delta computation (rolling checksum + BLAKE3 strong), compression, chunking, FEC encode, encrypt, queue.
+- [x] Receiver pipeline: decrypt/authenticate, checksum verify, FEC recovery, reorder, apply delta, ACK/NAK emission.
 - [x] AWK/NAK/ACK-ACK state machines with timers, SACK ranges, deduplication, and rate-limits.
-- [ ] Congestion control: BBR-style pacing, bandwidth/RTT estimation, adaptive payload sizing, backoff with jitter.
+- [x] Congestion control: BBR-style pacing, bandwidth/RTT estimation, adaptive payload sizing, backoff with jitter.
 - [x] MTU management: CLI cap, path probing, adaptive downsizing on loss/corruption.
 - [x] CLI compatible with rsync flags subset; argument parsing and mapping to engine config.
 - [ ] Metadata handling: permissions, timestamps, symlinks, atomic rename-on-complete; cross-platform nuances.

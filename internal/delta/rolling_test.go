@@ -7,7 +7,7 @@ import (
 	"github.com/zeebo/blake3"
 )
 
-func adlerLike(b []byte) uint32 {
+func testAdlerLike(b []byte) uint32 {
 	const modAdler = 65521
 	var a, c uint32
 	for i := 0; i < len(b); i++ {
@@ -25,21 +25,21 @@ func TestRolling_InitAndRoll(t *testing.T) {
 	if err := r.Init(data[:3]); err != nil {
 		t.Fatalf("init err: %v", err)
 	}
-	if got, want := r.Sum(), adlerLike(data[:3]); got != want {
+	if got, want := r.Sum(), testAdlerLike(data[:3]); got != want {
 		t.Fatalf("sum0 got %d want %d", got, want)
 	}
 	sum1, err := r.Roll(data[3])
 	if err != nil {
 		t.Fatalf("roll1 err: %v", err)
 	}
-	if want := adlerLike([]byte("bcd")); sum1 != want {
+	if want := testAdlerLike([]byte("bcd")); sum1 != want {
 		t.Fatalf("sum1 got %d want %d", sum1, want)
 	}
 	sum2, err := r.Roll(data[4])
 	if err != nil {
 		t.Fatalf("roll2 err: %v", err)
 	}
-	if want := adlerLike([]byte("cde")); sum2 != want {
+	if want := testAdlerLike([]byte("cde")); sum2 != want {
 		t.Fatalf("sum2 got %d want %d", sum2, want)
 	}
 	if _, err := NewRolling(3).Roll('x'); err == nil {
